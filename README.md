@@ -9,7 +9,7 @@
 ```docker build -t beesheer/node-express:1.0.2 .```
 
 - Push to remote docker hub  
-```docker login```
+```docker login```  
 ```docker push beesheer/node-express```  
 OR with a version number:   
 ```docker push beesheer/node-express:1.0.2```
