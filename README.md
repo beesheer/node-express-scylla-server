@@ -20,3 +20,8 @@ OR with a version number:
 
 - Test with wrk using a docker container  
 ```docker run --rm williamyeh/wrk -c20 -d30 -t12 http://192.168.99.100:3000/api/comment```
+
+## NOTES
+To make this work, please make sure you have a running docker installed on your development machine. Also, it assumes you have a running cluster of scylla db running locally at 192.168.99.100 with a default port. 
+
+The scylla db has a keyspace set up with a couple of tables in it.
