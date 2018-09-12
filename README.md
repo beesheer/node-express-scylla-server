@@ -10,7 +10,7 @@
 
 - Push to remote docker hub  
 ```docker login```
-```docker push beesheer/node-express```
+```docker push beesheer/node-express```  
 OR with a version number:   
 ```docker push beesheer/node-express:1.0.2```
 
