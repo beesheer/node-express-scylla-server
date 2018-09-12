@@ -1,4 +1,4 @@
-## Set up an node-express instance using docker
+## Set up an node-express instance image using docker
 - git clone this repo  
 ```git clone https://github.com/beesheer/node-express-scylla-server```
 
@@ -14,7 +14,7 @@
 OR with a version number:   
 ```docker push beesheer/node-express:1.0.2```
 
-## Deploy to a server with docker and do load test
+## Deploy to your local server with docker and do load test
 - Spawn it in docker on a server  
 ```docker run -d -p 3000:3000 --name node-express beesheer/node-express:1.0.2```
 
