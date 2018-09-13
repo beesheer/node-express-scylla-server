@@ -2,14 +2,14 @@ const uuidv4 = require('uuid/v4');
 var express = require('express');
 var router = express.Router();
 var cassandra = require('cassandra-driver')
-var client = new cassandra.Client({ contactPoints: ['172.17.0.3'] })
+var client = new cassandra.Client({ contactPoints: ['172.17.0.3'], keyspace: 'audiomack_comments'})
 
 router.get('/', function (req, res, next) {
   res.json({ a: 'a' })
 })
 
 router.get('/comment', function (req, res, next) {
-  client.execute('select * from audiomack_comments.comments where song_id = 100', function (err, result) {
+  client.execute('select * from comments where song_id = 10', function (err, result) {
     if (err) throw err
     res.json(result.rows)
   })
@@ -18,8 +18,8 @@ router.get('/comment', function (req, res, next) {
 function generateComments(count = 1000) {
   let statement = 'BEGIN BATCH ';
   for ($j = 0; $j < count; $j++) {
-    let songId = Math.random(1, 100);
-    let userId = Math.random(1, 100);
+    let songId = Math.floor(Math.random() * 100);
+    let userId = Math.floor(Math.random() * 100);
     let uuid = uuidv4();
     let now = Math.floor(Date.now() / 1000);
     statement += `INSERT INTO comments (song_id, user_id, timestamp, comment, id) VALUES (${songId}, ${userId}, ${now}, 'test comment', ${uuid});`;
@@ -31,10 +31,14 @@ function generateComments(count = 1000) {
 router.get('/add', function (req, res, next) {
   // Insert a thousand random comments
   let statement = generateComments();
-  client.execute(statement, function(err, result){
-    if (err) throw err
-    res.json({'msg':'inserted 1000 comemnts'})
-  })
+  try {
+    client.execute(statement, function(err, result){
+      if (err) throw err
+      res.json({'msg':'inserted 1000 comemnts'})
+    })
+  } catch (err) {
+    throw err
+  }
 })
 
 module.exports = router
