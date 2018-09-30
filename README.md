@@ -15,6 +15,11 @@ OR with a version number:
 ```docker push beesheer/node-express:1.0.2```
 
 ## Deploy to your local server with docker and do load test
+- Remove existing.
+```docker pull beesheer/node-express:1.0.2```
+```docker stop node-express```
+```docker rm node-express```
+
 - Spawn it in docker on a server  
 ```docker run -d -p 3000:3000 --name node-express beesheer/node-express:1.0.2```
 

@@ -15,7 +15,7 @@ router.get('/comment', function (req, res, next) {
   })
 })
 
-function generateComments(count = 1000) {
+function generateComments(count = 100) {
   let statement = 'BEGIN BATCH ';
   for ($j = 0; $j < count; $j++) {
     let songId = Math.floor(Math.random() * 100);
@@ -39,7 +39,7 @@ router.get('/add', function (req, res, next) {
   try {
     client.execute(statement, function(err, result){
       if (err) throw err
-      res.json({'msg':'inserted 1000 comemnts'})
+      res.json({'msg':'inserted 100 comemnts'})
     })
   } catch (err) {
     throw err
