@@ -30,7 +30,12 @@ function generateComments(count = 1000) {
 
 router.get('/add', function (req, res, next) {
   // Insert a thousand random comments
-  let statement = generateComments();
+  let statement;
+  try { 
+    statement = generateComments();
+  } catch (err) {
+    throw err
+  }
   try {
     client.execute(statement, function(err, result){
       if (err) throw err
