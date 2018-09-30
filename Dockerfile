@@ -1,9 +1,19 @@
-FROM node:8
+FROM keymetrics/pm2:latest-alpine
+
+# Bundle APP files
 WORKDIR /app
 COPY package.json /app
-#COPY package-lock.json /app
-RUN npm install pm2 -g
-RUN npm install
+COPY ecosystem.config.js /app
+
+# Install app dependencies
+ENV NPM_CONFIG_LOGLEVEL warn
+RUN npm install --production
 COPY . /app
-CMD pm2 start bin/www
+
+# Expose the listening port of your app
 EXPOSE 3000
+
+# Show current folder structure in logs
+RUN ls -al -R
+
+CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]
